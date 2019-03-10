@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title> Leaflet map example </title>
-	
+
 	<!-- The following links add the CSS and JS required for the Leaflet Map -->
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"
 	integrity="sha512-wcw6ts8Anuw10Mzh9Ytw4pylW8+NAD4ch3lqm9lzAsTxg0GFeJgoAtxuCLREZSC5lUXdVyo/7yfsqFjQ4S+aKw=="
@@ -36,6 +36,10 @@
 						'Imagery © <a href="http://mapbox.com">Mapbox</a>',
 						id: 'mapbox.streets'
 						}).addTo(mymap);
+
+		// add a point
+		L.marker([51.5,-0.09]).addTo(mymap)
+		.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
 	</script>
 
 </body>
