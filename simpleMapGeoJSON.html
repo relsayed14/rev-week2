@@ -3,6 +3,18 @@
 <head>
 	<title> Simple GeoJSON Map </title>
 
+	<!--the following links add the CSS and Javascript required for the Cusom Markers (Icons) -->
+	<link rel="stylesheet" href="ionicons.min.css">
+	<link rel="stylesheet" href="leaflet.awesome-markers.css">
+	<script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"
+   	integrity="sha512-mNqn2Wg7tSToJhvHcqfzLMU6J4mkOImSPTxVZAdo+lcPlk+GhZmYgACEe0x35K7YzW1zJ7XyJV/TT1MrdXvMcA=="
+
+   	crossorigin=""></script>
+
+	<script src="leaflet.awesome-markers.js"></script>
+
+	<!--the following links add the CSS and Javascript required for the Leaflet Map -->
+
 	<!-- The following links add the CSS and JS required for the Leaflet Map -->
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"
 	integrity="sha512-wcw6ts8Anuw10Mzh9Ytw4pylW8+NAD4ch3lqm9lzAsTxg0GFeJgoAtxuCLREZSC5lUXdVyo/7yfsqFjQ4S+aKw=="
@@ -12,12 +24,7 @@
 
 	crossorigin=""></script>
 
-	<!-- The follopwing links incorporate the CSS required for custom icon creation -->
-	<link rel="stylesheet" href="ionicons.min.css">
-	<link rel="stylesheet" href="leaflet.awesome-markers.css"> <script src="leaflet.awesome-markers.js"></script>
-
-	<!-- the following CSS is used to set the size of the Map -->
-	<style type="text/css">
+	<!-- the following CSS is used to set the size of the Map --><style type="text/css">
 			#mapid { height: 180px; } 
 	</style>
 
@@ -26,6 +33,7 @@
 
 	<!-- the mapid div will hold the map -->
 	<div id="mapid" style="width: 600px; height: 400px;"></div>
+
 	<!-- the following script will load the map and set the default view and zoom, as well as loading the basemap tiles -->
 	
 	<script>
@@ -55,7 +63,7 @@
 		};
 
 		//and add it to the map
-		L.geoJSON(geojsonFeature).addTo(mymap).bindPopup("<b>"+geojsonFeature.properties.name + " "
+		L.geoJSON(geojsonFeature).addTo(mymap).bindPopup("<b>"+geojsonFeature.properties.name+" "+geojsonFeature.properties.popupContent+"<b>");
 
 		//create a custom popup
 		var popup = L.popup();
@@ -71,6 +79,12 @@
 		// now add the click event detector to the map
 		mymap.on('click',onMapClick);
 
+
+		// create a custom Marker icon
+		var testMarkerPink = L.AwesomeMarkers.icon({
+			icon: 'play',
+			markerColor: 'pink'
+		});
 
 	</script>
 </body>
