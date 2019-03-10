@@ -13,7 +13,6 @@
 
 	<script src="leaflet.awesome-markers.js"></script>
 
-	<!--the following links add the CSS and Javascript required for the Leaflet Map -->
 
 	<!-- The following links add the CSS and JS required for the Leaflet Map -->
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"
@@ -62,8 +61,18 @@
 			}
 		};
 
+		// create a custom Marker icon
+		var testMarkerPink = L.AwesomeMarkers.icon({
+			icon: 'play',
+			markerColor: 'pink'
+		});
+
 		//and add it to the map
-		L.geoJSON(geojsonFeature).addTo(mymap).bindPopup("<b>"+geojsonFeature.properties.name+" "+geojsonFeature.properties.popupContent+"<b>");
+		L.geoJSON(geojsonFeature, {
+			pointToLayer: function(feature, latlng) {
+				return L.marker(latlng, {icon:testMarkerPink});
+			}
+		}).addTo(mymap).bindPopup("<b>"+geojsonFeature.properties.name+" "+geojsonFeature.properties.popupContent+"<b>");
 
 		//create a custom popup
 		var popup = L.popup();
@@ -80,11 +89,7 @@
 		mymap.on('click',onMapClick);
 
 
-		// create a custom Marker icon
-		var testMarkerPink = L.AwesomeMarkers.icon({
-			icon: 'play',
-			markerColor: 'pink'
-		});
+		
 
 	</script>
 </body>
