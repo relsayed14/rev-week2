@@ -50,7 +50,12 @@
 		};
 
 		//and add it to the map
-		L.geoJSON(geojsonFeature).addTo(mymap).bindPopup("<b>"+geojsonFeature.properties.name + " " + geojsonFeature.properties.popupContent+ "<b>")
+		L.geoJSON(geojsonFeature).addTo(mymap).bindPopup("<b>"+geojsonFeature.properties.name + " "
+
+		//create a custom popup
+		var popup = L.popup();
+
+		
 
 
 
