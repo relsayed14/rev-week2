@@ -35,6 +35,33 @@
 						'Imagery © <a href="http://mapbox.com">Mapbox</a>',
 						id: 'mapbox.streets'
 						}).addTo(mymap);
+
+		// create a GeoJSON Feature
+		var geojsonFeature = {
+			"type": "Feature",
+			"properties": {
+				"name":"London",
+				"popupContent":"This is where UCL is based"
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates":[-0.118092,51.5098655]
+			}
+		};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</script>
 </body>
 </html>
