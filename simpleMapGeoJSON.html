@@ -12,7 +12,12 @@
 
 	crossorigin=""></script>
 
-	<!-- the following CSS is used to set the size of the Map --><style type="text/css">
+	<!-- The follopwing links incorporate the CSS required for custom icon creation -->
+	<link rel="stylesheet" href="ionicons.min.css">
+	<link rel="stylesheet" href="leaflet.awesome-markers.css"> <script src="leaflet.awesome-markers.js"></script>
+
+	<!-- the following CSS is used to set the size of the Map -->
+	<style type="text/css">
 			#mapid { height: 180px; } 
 	</style>
 
@@ -55,7 +60,7 @@
 		//create a custom popup
 		var popup = L.popup();
 
-		//create ana event detector to wait for the user's click event and then use the popup to show them where they clicked
+		//create an event detector to wait for the user's click event and then use the popup to show them where they clicked
 		function onMapClick(e) {
 			popup
 				.setLatLng(e.latlng)
