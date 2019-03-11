@@ -19,7 +19,7 @@
 
 			//returnt the distance in kilometres
 			var distance = calculateDistance(position.coords.latitude, position.coords.longitude,lat,lng,"K");
-			document.getElementById('showDistance').innerHTML = "Distance: " + distance;
+			document.getElementById('showDistance').innerHTML = "Distance: " + distance + " km";
 		}
 
 		// code adapted from https://www.htmlgoodies.com/beyond/javascript/calculate-the-distance-between-two-points-in-your-web-apps.html
@@ -45,7 +45,7 @@
 <body>
 	<b>This code will display your current location </b>
 	<div id="showDistance">Distance will be displayed here</div>
-	<button id="getDistance" onclick="getDistanceFromPoint()"> Click Me to Calculate Distance from UCL</button>
+	<button id="getDistance" onclick="getDistance()"> Click Me to Calculate Distance from UCL</button>
 
 
 </body>
