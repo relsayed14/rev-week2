@@ -19,21 +19,82 @@
 
  	</style>
 
-   	<!-- Code to run when button is clicked to manually load the data -->
+   	
+   	<script>
+
+   		//create a variable for each of the layers we want to load/remove
+   		var earthquakelayer;
+   		var busstoplayer;
+
+   		//create a variable to hold the XMLHttpRequest()
+   		var client;
+
+   		// create the code to get the data using the XMLHttpRequest
+   		function getData(layername) {
+   			client = new XMLHttpRequest();
+
+   		// dependig on the layer name, we get different URLs
+   			var url;
+   			if (layername == "earthquakes") {
+   				url =  "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson"
+   			} 
+   			if (layername == "busstops") {
+   				url = "https://developer.cege.ucl.ac.uk:31072/rev-week2/busstops.geojson"
+   			}
+
+   			client.open('GET', url);
+   			client.onreadystatechange = dataResponse;
+   			client.send();
+		}
+
+   		// code to wait for the response from dta server, and process the response once received
+   		function dataResponse() {
+   			// this function listens out for the server to say that the data is ready - i.e. has state 4
+   			if(client.readyState == 4) {
+   				// once data is ready, process the data
+   				var geoJSONData = client.responseText;
+   				loadLayer(geoJSONData);
+   			}
+   		}
+
+   		//convert the received data from text to JSON format and add to the map
+   		function loadLayer(geoJSONData) {
+   			//which layer did we actually load?
+   			if(geoJSONData.indexOf("earthquake") > 0) {
+   				var loadingEarthquakes = true;
+   			}
+   			if (geoJSONData.indexOf("IIT_METHOD") >0) {
+   				var loadingBusstops = true;
+   			}
+
+   			//convert text to JSON
+   			var json = JSON.parse(geoJSONData);
+
+   			// add the JSON Layer onto the map
+   			if(loadingEarthquakes === true) {
+   				earthquakelayer = L.geoJson(json).addTo(mymap);
+   				mymap.fitBounds(earthquakelayer.getBounds());
+   			}
+   			if(loadingBusstops === true) {
+   				busstoplayer = L.geoJson(json).addTo(mymap);
+   				mymap.fitBounds(busstoplayer.getBounds());
+   			}
+   		}
+
+   	</script>
+
+	<!-- Code to run when button is clicked to load the data -->
    	<script>
    		 // Code to run when load Data button is clicked
  		function loadEarthquakeData() {
 			// shows an alert message - so that we know something is happening
 			alert("Loading Earthquakes");
-			// call the getEarthquakes code
-			getEarthquakes();
+			layername = "earthquakes";
+			getData(layername);
 
  			}
 
    		 // Code to run when remove Data button is clicked
-   		 // make sure that there is a variable for the earthquake layer to be referenced by
-		var earthquakelayer; // this should be GLOBAL – i.e. not inside a function – so that any code can see the variable
-
 		function removeEarthquakeData() {
    		 	alert("Earthquake data will be removed");
    		 	mymap.removeLayer(earthquakelayer);
@@ -43,47 +104,17 @@
    		 // Code to run to add bus stops layer - using button
    		function loadBusstopsLayer() {
    			alert("Loading bus stops");
+   			layername = "busstops";
+   			getData(layername);
    		}
 
 
    		// Code to run to remove bus stops layer - using button
-   		var busstoplayer;
-
    		function removeBusstopsLayer() {
    			alert("Removing bus stops");
+   			mymap.removeLayer(busstoplayer);
    		} 
- 		// creating a variable to hold the XMLHttpRequest() - this must be done outside a function so that all functions can use it
- 		var client;
-
- 		// creating the code to get the Earthquakes data using an XMLHttpRequest
- 		function getEarthquakes() {
- 			client = new XMLHttpRequest();
-
- 			client.open('GET','https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson');
- 			client.onreadystatechange = earthquakeResponse; // earthquakeResponse() does not work
- 			client.send();
- 		}
-
- 		// creating the code to wait for the response from the data server, and process the response once it is received
- 		function earthquakeResponse() {
- 			// this function listens out for the server to say that the data is ready - i.e. has state 4 
- 			if (client.readyState == 4) {
- 				// once data is ready, process the data
- 				var earthquakedata = client.responseText;
- 				loadEarthquakelayer(earthquakedata); 
- 			}
- 		}
-
- 		// convert received data (text) to JSON format and add it to the map
- 		function loadEarthquakelayer(earthquakedata) {
- 			// convert text to JSON
- 			var earthquakejson = JSON.parse(earthquakedata);
- 			// add the JSON layer onto the map - will appear using the default icons
- 			earthquakelayer = L.geoJson(earthquakejson).addTo(mymap);
-
- 			// change the map zoom so that all the data is shown
- 			mymap.fitBounds(earthquakelayer.getBounds());
- 		}
+ 		
    	</script>
 </head>
 <body>
