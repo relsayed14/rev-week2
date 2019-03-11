@@ -16,7 +16,16 @@
 			#mapid { height: 180px; } 
 	</style>
 
+	<!-- Code to request Earthquakes data -->
+	<script>
+		
+		//create a variabe to hold the XMLHttpReqeuest() - must be done outside a function so that all functions can use it
+		var client;
 
+		//and a varibale to hold the layer itself - should also be outside the function so we can use it to remove the layer later on
+		var earthquakelayer;
+
+	</script>
 </head>
 <body>
 	
